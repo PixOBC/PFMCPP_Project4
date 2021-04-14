@@ -93,9 +93,8 @@ good to go!
 
 #include <iostream>
 
-class FloatType
+struct FloatType
 {
-public:
     FloatType()
     {
     }
@@ -105,7 +104,7 @@ public:
 
     float add( float lhs, float rhs )
     {
-           return lhs + rhs;
+        return lhs + rhs;
     }
 
     float subtract( float lhs, float rhs )
@@ -121,17 +120,15 @@ public:
     float divide( float lhs,float rhs )
     {
         if (rhs == 0.0f)
-        std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        {
+            std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        }        
         return lhs / rhs;
     }
-
-private:
-
 };
 
-class DoubleType
+struct DoubleType
 {
-public:
     DoubleType()
     {
     }
@@ -161,14 +158,10 @@ public:
         
         return lhs / rhs;
     }
-
-private:
-
 };
 
-class IntType
+struct IntType
 {
-public:
     IntType()
     {
     }
@@ -198,18 +191,9 @@ public:
            std::cout << "error, integer division by zero will crash the program!" << std::endl;
            std::cout << "returning lhs" << std::endl;
            return lhs;
-        }
-        else
-        {
-            return lhs / rhs;
-        }
-
-        
-
+        }       
+        return lhs / rhs;     
     }
-
-private:
-
 };
 
 #include <iostream>
