@@ -98,7 +98,6 @@ class FloatType
 public:
     FloatType()
     {
-        std::cout << "REMEMBER: Floating point division by 0 is legal, but integer division by 0 will crash your program." << std::endl;
     }
     ~FloatType()
     {
@@ -122,7 +121,7 @@ public:
     float divide( float lhs,float rhs )
     {
         if (rhs == 0.0f)
-        std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
         return lhs / rhs;
     }
 
@@ -158,7 +157,7 @@ public:
     double divide( double lhs,double rhs )
     {
         if (rhs == 0.0)
-            std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
+            std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
         
         return lhs / rhs;
     }
@@ -172,7 +171,6 @@ class IntType
 public:
     IntType()
     {
-        std::cout << "REMEMBER: Floating point division by 0 is legal, but integer division by 0 will crash your program." << std::endl;
     }
     ~IntType()
     {
@@ -198,7 +196,8 @@ public:
         if (rhs == 0)
         {
            std::cout << "error, integer division by zero will crash the program!" << std::endl;
-           std::cout << "returning lhs: "; return lhs;
+           std::cout << "returning lhs" << std::endl;
+           return lhs;
         }
         else
         {
