@@ -184,7 +184,7 @@ struct FloatType
 {
     float* value = new float; // owned heap-allocated type float
     // is this another way? value(new float()) allocating heap memory no contructor parameter
-    // so, value(new float(floatValue)) allocating heap memory and sing floatValue to initialise value??
+    // so, value(new float(floatValue)) allocating heap memory and using floatValue to initialise value??
 
     FloatType(float* floatValue)
         : value(floatValue)// this value will initialise the owned primitive's value. How? Similar to wrapper class?
