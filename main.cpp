@@ -10,7 +10,7 @@ New/This/Pointers/References conclusion
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
  
  0) in the blank space below, declare/define an empty struct named 'A' on a single Line. [DONE]
-     on the lines below it, write a struct named 'HeapA' that correctly shows how to own an instance of 'A' ON THE HEAP without leaking, without using smart pointers. Vid @15:00
+     on the lines below it, write a struct named 'HeapA' that correctly shows how to own an instance of 'A' ON THE HEAP without leaking, without using smart pointers.
  */
 
 // With pointers and new keyword
@@ -26,13 +26,10 @@ struct HeapA
     }
 };
 
-
-
  /*
   * [DONE]
  1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
          IntType should own a heap-allocated int, for example.
- [DONE]
  2) give it a constructor that takes the appropriate primitive
     this argument will initialize the owned primitive's value.
          i.e. if you're owning an int on the heap, your ctor argument will initialize that heap-allocated int's value.
@@ -103,39 +100,9 @@ inf
 good to go!
 
 
-
-
-
 */
 
 #include <iostream>
-
-struct FloatType
-{
-    FloatType(float floatValue)
-    {
-
-    }
-    float* value = new float;
-};
-
-struct DoubleType
-{
-    DoubleType(double doubleValue)
-    {
-
-    }
-    double* value = new double;
-};
-
-struct IntType
-{
-    IntType(int intValue)
-    {
-
-    }
-    int* value = new int;
-};
 
 int main()
 {
@@ -213,7 +180,10 @@ int main()
 
 struct FloatType
 {
-    FloatType()
+
+    float* value = new float;
+
+    FloatType(float floatValue)
     {
     }
     ~FloatType()
@@ -247,7 +217,10 @@ struct FloatType
 
 struct DoubleType
 {
-    DoubleType()
+
+    double* value = new double;
+
+    DoubleType(double doubleValue)
     {
     }
     ~DoubleType()
@@ -280,7 +253,9 @@ struct DoubleType
 
 struct IntType
 {
-    IntType()
+    int* value = new int;
+
+    IntType(int intValue)
     {
     }
     ~IntType()
