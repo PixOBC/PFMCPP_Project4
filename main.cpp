@@ -31,12 +31,12 @@ struct HeapA
  1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
          IntType should own a heap-allocated int, for example.
  [DONE]
-  2) give it (your struct) a constructor that takes the appropriate primitive type.
-    This argument will initialize the owned primitive's value. (shall I do that now?)
+  2) give it (your struct) a constructor that takes the appropriate primitive type. (as a pointer? )
+    This argument will initialize the owned primitive's value. (shall I do that now in the constructor?)
          i.e. if you're owning an int on the heap, your constructor argument will initialize that heap-allocated int's value.
 
 
- 3) modify those add/subtract/divide/multiply member functions from chapter 2 on it (on what? What does this mean?)
+ 3) modify those add/subtract/divide/multiply member functions from chapter 2 on it (on what? What does this mean? int's value?)
          a) make them modify the owned numeric type
          b) set them up so they can be chained together.
              i.e.
@@ -50,7 +50,7 @@ struct HeapA
      
  5) Don't let your heap-allocated owned type leak!
  
- 6) replace your main() with the main() below.
+ 6) REPLACE YOUR MAIN() WITH THE MAIN() BELOW.
     It has some intentional mistakes that you need to fix to match the expected output
     i.e. don't forget to dereference your pointers to get the value they hold.
 
@@ -181,17 +181,19 @@ int main()
 
 struct FloatType
 {
-
     float* value = new float;
 
     FloatType(float floatValue)
     {
-        *value = floatValue;
+
     }
     ~FloatType()
     {
+        delete value;
+        value = nullptr;
     }
 
+    // modify
     float add( float lhs, float rhs )
     {
         return lhs + rhs;
