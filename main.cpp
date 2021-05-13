@@ -29,13 +29,15 @@ struct HeapA
 
 
  /*
+  * [DONE]
  1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
          IntType should own a heap-allocated int, for example.
- 
+ [DONE]
  2) give it a constructor that takes the appropriate primitive
     this argument will initialize the owned primitive's value.
          i.e. if you're owning an int on the heap, your ctor argument will initialize that heap-allocated int's value.
- 
+
+
  3) modify those add/subtract/divide/multiply member functions from chapter 2 on it
          a) make them modify the owned numeric type
          b) set them up so they can be chained together.
@@ -107,6 +109,33 @@ good to go!
 */
 
 #include <iostream>
+
+struct FloatType
+{
+    FloatType(float floatValue)
+    {
+
+    }
+    float* value = new float;
+};
+
+struct DoubleType
+{
+    DoubleType(double doubleValue)
+    {
+
+    }
+    double* value = new double;
+};
+
+struct IntType
+{
+    IntType(int intValue)
+    {
+
+    }
+    int* value = new int;
+};
 
 int main()
 {
