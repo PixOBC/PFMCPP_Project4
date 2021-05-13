@@ -30,14 +30,14 @@ struct HeapA
   * [DONE]
  1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
          IntType should own a heap-allocated int, for example.
- [DONE]
+ [DONE - MAYBE]
   2) give it (your struct) a constructor that takes the appropriate primitive type. (as a pointer? )
-    This argument will initialize the owned primitive's value. (shall I do that now in the constructor?)
+    This argument will initialize the owned primitive's value.
          i.e. if you're owning an int on the heap, your constructor argument will initialize that heap-allocated int's value.
 
 
- 3) modify those add/subtract/divide/multiply member functions from chapter 2 on it (on what? What does this mean? int's value?)
-         a) make them modify the owned numeric type
+ 3) modify those add/subtract/divide/multiply member functions from chapter 2 on it (on what? What does this mean? owned type's value?)
+         a) make them modify the owned numeric type - NOT SURE
          b) set them up so they can be chained together.
              i.e.
              DoubleType dt(3.5);
@@ -183,6 +183,8 @@ int main()
 struct FloatType
 {
     float* value = new float; // owned heap-allocated type float
+    // is this another way? value(new float()) allocating heap memory no contructor parameter
+    // so, value(new float(floatValue)) allocating heap memory and sing floatValue to initialise value??
 
     FloatType(float* floatValue)
         : value(floatValue)// this value will initialise the owned primitive's value. How? Similar to wrapper class?
@@ -195,7 +197,14 @@ struct FloatType
         value = nullptr;
     }
 
-    // modify
+    // 4. In addition to your member functions that take primitives Write add/subtract...member functions for each type that take your 3 UDTs
+    // These functions should return the result of calling the function that takes the primitive (i.e. float, double int)
+    FloatType add(float lhs, float rhs);
+    FloatType subtract(float lhs, float rhs);
+    FloatType multiply();
+    FloatType divide();
+
+    // 3. make member functions modify the numeric type
     float add( float lhs, float rhs )
     {
         return lhs + rhs;
@@ -223,17 +232,22 @@ struct FloatType
 
 struct DoubleType
 {
-    double* value = new double;
+    double* value;
 
     DoubleType(double doubleValue)
+        : value(new double(doubleValue))
     {
-        *value = doubleValue; // initialising value with constructor argument,
     }
     ~DoubleType()
     {
         delete value;
         value = nullptr;
     }
+
+    DoubleType add();
+    DoubleType subtract();
+    DoubleType multiply();
+    DoubleType divide();
 
     double add( double lhs, double rhs )
     {
@@ -263,7 +277,8 @@ struct IntType
 {
     int* value = new int;
 
-    IntType(int intValue)
+    IntType(int* intValue)
+        : value(intValue)
     {
     }
     ~IntType()
@@ -271,6 +286,11 @@ struct IntType
         delete value;
         value = nullptr;
     }
+
+    IntType add();
+    IntType subtract();
+    IntType multiply();
+    IntType divide();
 
     int add( int lhs, int rhs )
     {
