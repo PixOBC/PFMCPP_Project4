@@ -4,23 +4,27 @@
 
  Create a branch named Part2
 
-New/This/Pointers/References conclusio n
+New/This/Pointers/References conclusion
 
     Build/Run often with this task to make sure you're not breaking the code with each step.
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
  
- 0) in the blank space below, declare/define an empty struct named 'A' on a single Line. 
-     on the lines below it, write a struct named 'HeapA' that correctly shows how to own an instance of 'A' 
-         on the heap without leaking, without using smart pointers. 
+ 0) in the blank space below, declare/define an empty struct named 'A' on a single Line. [DONE]
+     on the lines below it, write a struct named 'HeapA' that correctly shows how to own an instance of 'A' ON THE HEAP without leaking, without using smart pointers. Vid @15:00
  */
 
+// With pointers and new keyword
+struct A { };
 
-
-
-
-
-
-
+struct HeapA
+{
+    A* pointerToA = new A();
+    ~HeapA()
+    {
+        delete pointerToA;
+        pointerToA = nullptr;
+    }
+};
 
 
 
@@ -105,7 +109,7 @@ good to go!
 #include <iostream>
 
 int main()
-{   
+{
     //testing instruction 0
     HeapA heapA; 
 
