@@ -177,13 +177,15 @@ int main()
  Wait for my code review.
  */
 
+
 #include <iostream>
 
 struct FloatType
 {
-    float* value = new float;
+    float* value = new float; // owned heap-allocated type float
 
-    FloatType(float floatValue)
+    FloatType(float* floatValue)
+        : value(floatValue)// this value will initialise the owned primitive's value. How? Similar to wrapper class?
     {
 
     }
@@ -229,6 +231,8 @@ struct DoubleType
     }
     ~DoubleType()
     {
+        delete value;
+        value = nullptr;
     }
 
     double add( double lhs, double rhs )
@@ -264,6 +268,8 @@ struct IntType
     }
     ~IntType()
     {
+        delete value;
+        value = nullptr;
     }
 
     int add( int lhs, int rhs )
