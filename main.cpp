@@ -140,36 +140,41 @@ struct FloatType
 
     // 4. In addition to your member functions that take primitives Write add/subtract...member functions for each type that take your 3 UDTs
     // These functions should return the result of calling the function that takes the primitive (i.e. float, double int)
-    FloatType add(float lhs, float rhs);
-    FloatType subtract(float lhs, float rhs);
-    FloatType multiply();
-    FloatType divide();
+    FloatType& add(float lhs, float rhs);
+    FloatType& subtract(float lhs, float rhs);
+    FloatType& multiply(float lhs,float rhs);
+    FloatType& divide(float lhs,float rhs);
 
-    // 3. make member functions modify the numeric type or modify the member functions?
-    float add( float lhs, float rhs )
-    {
-        return lhs + rhs;
-    }
-
-    float subtract( float lhs, float rhs )
-    {
-        return lhs - rhs;
-    }
-
-    float multiply( float lhs,float rhs )
-    {
-        return lhs * rhs;
-    }
-
-    float divide( float lhs,float rhs )
-    {
-        if (rhs == 0.0f)
-        {
-            std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
-        }        
-        return lhs / rhs;
-    }
 };
+
+// 3. make member functions modify the numeric type or modify the member functions?
+// Member functions that return a reference to the class type - Chaining
+//Ch3.6 @17:30
+// Currently the only way to call a member function is via an existing object
+// @18:58 Modifying the member functions so that they return a reference
+FloatType& FloatType::add( float lhs, float rhs ) // am I changing the return type because float is owned by it?
+{
+    return *this; // @19:15 returns a reference to a FloatType so we can use member variables and call member functions of that returned reference
+}
+
+FloatType& FloatType::subtract( float lhs, float rhs )
+    {
+        return *this;
+    }
+
+FloatType& FloatType::multiply( float lhs,float rhs )
+{
+    return lhs * rhs;
+}
+
+FloatType& FloatType::divide( float lhs,float rhs )
+{
+    if (rhs == 0.0f)
+    {
+        std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
+    }
+    return *this;
+}
 
 //============================================================================================================
 
@@ -187,34 +192,34 @@ struct DoubleType
         value = nullptr;
     }
 
-    DoubleType add();
-    DoubleType subtract();
-    DoubleType multiply();
-    DoubleType divide();
+    DoubleType& add( double lhs, double rhs);
+    DoubleType& subtract( double lhs, double rhs);
+    DoubleType& multiply( double lhs, double rhs);
+    DoubleType& divide( double lhs, double rhs);
 
-    double add( double lhs, double rhs )
-    {
-        return lhs + rhs;
-    }
-
-    double subtract( double lhs, double rhs )
-    {
-        return lhs - rhs;
-    }
-
-    double multiply( double lhs,double rhs )
-    {
-        return lhs * rhs;
-    }
-
-    double divide( double lhs,double rhs )
-    {
-        if (rhs == 0.0)
-            std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
-        
-        return lhs / rhs;
-    }
 };
+
+DoubleType& DoubleType::add( double lhs, double rhs )
+{
+    return *this;
+}
+DoubleType& DoubleType::subtract( double lhs, double rhs )
+{
+    return *this;
+}
+
+DoubleType& DoubleType::multiply( double lhs,double rhs )
+{
+    return *this;
+}
+
+DoubleType& DoubleType::divide( double lhs,double rhs )
+{
+    if (rhs == 0.0)
+        std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        
+    return *this;
+}
 
 //============================================================================================================
 
@@ -232,37 +237,38 @@ struct IntType
         value = nullptr;
     }
 
-    IntType add();
-    IntType subtract();
-    IntType multiply();
-    IntType divide();
+    IntType& add(int lhs, int rhs);
+    IntType& subtract(int lhs, int rhs);
+    IntType& multiply(int lhs, int rhs);
+    IntType& divide(int lhs, int rhs);
 
-    int add( int lhs, int rhs )
-    {
-        return lhs + rhs;
-    }
-
-    int subtract( int lhs, int rhs )
-    {
-        return lhs - rhs;
-    }
-
-    int multiply( int lhs,int rhs )
-    {
-        return lhs * rhs;
-    }
-
-    int divide( int lhs,int rhs )
-    {
-        if (rhs == 0)
-        {
-           std::cout << "error, integer division by zero will crash the program!" << std::endl;
-           std::cout << "returning lhs" << std::endl;
-           return lhs;
-        }       
-        return lhs / rhs;     
-    }
 };
+
+IntType& IntType::add( int lhs, int rhs )
+{
+    return *this;
+}
+
+IntType& IntType::subtract( int lhs, int rhs )
+{
+    return *this;
+}
+
+IntType& IntType::multiply( int lhs,int rhs )
+{
+    return *this;
+}
+
+IntType& IntType::divide( int lhs,int rhs )
+{
+    if (rhs == 0)
+    {
+        std::cout << "error, integer division by zero will crash the program!" << std::endl;
+        std::cout << "returning lhs" << std::endl;
+        return lhs;
+    }
+    return *this;
+}
 
 //============================================================================================================
 
