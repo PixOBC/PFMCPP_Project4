@@ -140,10 +140,10 @@ struct FloatType
 
     // 4. In addition to your member functions that take primitives Write add/subtract...member functions for each type that take your 3 UDTs
     // These functions should return the result of calling the function that takes the primitive (i.e. float, double int)
-    FloatType& add(float lhs, float rhs);
-    FloatType& subtract(float lhs, float rhs);
-    FloatType& multiply(float lhs,float rhs);
-    FloatType& divide(float lhs,float rhs);
+    FloatType& add(float value);
+    FloatType& subtract(float value);
+    FloatType& multiply(float value);
+    FloatType& divide(float value);
 
 };
 
@@ -157,17 +157,17 @@ FloatType& FloatType::add( float lhs, float rhs ) // am I changing the return ty
     return *this; // @19:15 returns a reference to a FloatType so we can use member variables and call member functions of that returned reference
 }
 
-FloatType& FloatType::subtract( float lhs, float rhs )
-    {
-        return *this;
-    }
-
-FloatType& FloatType::multiply( float lhs,float rhs )
+FloatType& FloatType::subtract(float value)
 {
-    return lhs * rhs;
+    return *this;
 }
 
-FloatType& FloatType::divide( float lhs,float rhs )
+FloatType& FloatType::multiply(float value)
+{
+    return *this;
+}
+
+FloatType& FloatType::divide(float value)
 {
     if (rhs == 0.0f)
     {
@@ -192,28 +192,28 @@ struct DoubleType
         value = nullptr;
     }
 
-    DoubleType& add( double lhs, double rhs);
-    DoubleType& subtract( double lhs, double rhs);
-    DoubleType& multiply( double lhs, double rhs);
-    DoubleType& divide( double lhs, double rhs);
+    DoubleType& add(double value);
+    DoubleType& subtract(double value);
+    DoubleType& multiply(double value);
+    DoubleType& divide(double value);
 
 };
 
-DoubleType& DoubleType::add( double lhs, double rhs )
+DoubleType& DoubleType::add(double value)
 {
     return *this;
 }
-DoubleType& DoubleType::subtract( double lhs, double rhs )
-{
-    return *this;
-}
-
-DoubleType& DoubleType::multiply( double lhs,double rhs )
+DoubleType& DoubleType::subtract(double value)
 {
     return *this;
 }
 
-DoubleType& DoubleType::divide( double lhs,double rhs )
+DoubleType& DoubleType::multiply(double value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::divide(double value)
 {
     if (rhs == 0.0)
         std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
@@ -237,29 +237,29 @@ struct IntType
         value = nullptr;
     }
 
-    IntType& add(int lhs, int rhs);
-    IntType& subtract(int lhs, int rhs);
-    IntType& multiply(int lhs, int rhs);
-    IntType& divide(int lhs, int rhs);
+    IntType& add(int value);
+    IntType& subtract(int value);
+    IntType& multiply(int value);
+    IntType& divide(int value);
 
 };
 
-IntType& IntType::add( int lhs, int rhs )
+IntType& IntType::add(int value)
 {
     return *this;
 }
 
-IntType& IntType::subtract( int lhs, int rhs )
+IntType& IntType::subtract(int value)
 {
     return *this;
 }
 
-IntType& IntType::multiply( int lhs,int rhs )
+IntType& IntType::multiply(int value)
 {
     return *this;
 }
 
-IntType& IntType::divide( int lhs,int rhs )
+IntType& IntType::divide(int value)
 {
     if (rhs == 0)
     {
