@@ -35,16 +35,16 @@ struct HeapA
     This argument will initialize the owned primitive's ('*value') value.
          i.e. if you're owning an int on the heap, your constructor argument will initialize that heap-allocated int's value.
 
-
+[DONE]
  3) modify those add/subtract/divide/multiply member functions from chapter 2 on it (your primitive type - modify how?)
-         a) make them (member functions) modify the owned numeric type - NOT SURE
+         a) make them (member functions) modify the owned numeric type - [DONE]
          b) set them up so they can be chained together.
              i.e.
              DoubleType dt(3.5);
              dt.add(3.0).multiply(-2.5).divide(7.2); //an example of chaining
  
- 4) write add/subtract/divide/multiply member functions for each type that take your 3 UDTs
-        These are in addition to your member functions that take primitives
+ 4) write add/subtract/divide/multiply member functions for each type that take your 3 UDTs (FloatType, DoubleType, IntType)
+        THESE ARE IN ADDITION TO YOUR MEMBER FUNCTIONS THAT TAKE PRIMITIVES
         for example, IntType::divide(const DoubleType& dt);
         These functions should return the result of calling the function that takes the primitive.
      
@@ -140,35 +140,49 @@ struct FloatType
 
     // 4. In addition to your member functions that take primitives Write add/subtract...member functions for each type that take your 3 UDTs
     // These functions should return the result of calling the function that takes the primitive (i.e. float, double int)
-    FloatType& add(float value);
-    FloatType& subtract(float value);
-    FloatType& multiply(float value);
-    FloatType& divide(float value);
+    FloatType& add(float& value);
+    FloatType& subtract(float& value);
+    FloatType& multiply(float& value);
+    FloatType& divide(float& value);
 
 };
 
-// 3. make member functions modify the numeric type or modify the member functions?
+// 3. make member functions modify the value?
 // Member functions that return a reference to the class type - Chaining
 //Ch3.6 @17:30
 // Currently the only way to call a member function is via an existing object
 // @18:58 Modifying the member functions so that they return a reference
-FloatType& FloatType::add(float value) // am I changing the return type because float is owned by it?
+FloatType& FloatType::add(const float& value) // am I changing the return type because float is owned by it?
 {
     return *this; // @19:15 returns a reference to a FloatType so we can use member variables and call member functions of that returned reference
 }
 
-FloatType& FloatType::subtract(float value)
+FloatType& FloatType::subtract(const float& value) // need const to take in an rvalue?
 {
+    //Check
+    if(this->value != nullptr)
+    {
+        *this->value -= value;
+    }
+
     return *this;
 }
 
-FloatType& FloatType::multiply(float value)
+FloatType& FloatType::multiply(const float& value)
 {
+    if(this->value != nullptr)
+    {
+        *this->value *= value;
+    }
     return *this;
 }
 
-FloatType& FloatType::divide(float value)
+FloatType& FloatType::divide(const float& value)
 {
+    if(this->value)
+    {
+        *this->value /= value;
+    }
     return *this;
 }
 
@@ -188,29 +202,45 @@ struct DoubleType
         value = nullptr;
     }
 
-    DoubleType& add(double value);
-    DoubleType& subtract(double value);
-    DoubleType& multiply(double value);
-    DoubleType& divide(double value);
+    DoubleType& add(const double& value);
+    DoubleType& subtractconst double& value);
+    DoubleType& multiply(const double& value);
+    DoubleType& divide(const double& value);
 
 };
 
-DoubleType& DoubleType::add(double value)
+DoubleType& DoubleType::add(const double& value)
 {
+    if(this->value)
+    {
+        *this->value += value;
+    }
     return *this;
 }
-DoubleType& DoubleType::subtract(double value)
+DoubleType& DoubleType::subtract(const double& value)
 {
+    if(this->value)
+    {
+        *this->value -= value;
+    }
     return *this;
 }
 
-DoubleType& DoubleType::multiply(double value)
+DoubleType& DoubleType::multiply(const double& value)
 {
+    if(this->value)
+    {
+        *this->value *= value;
+    }
     return *this;
 }
 
-DoubleType& DoubleType::divide(double value)
+DoubleType& DoubleType::divide(const double& value)
 {
+    if(this->value)
+    {
+        *this->value /= value;
+    }
     return *this;
 }
 
@@ -230,31 +260,53 @@ struct IntType
         value = nullptr;
     }
 
-    IntType& add(int value);
-    IntType& subtract(int value);
-    IntType& multiply(int value);
-    IntType& divide(int value);
+    IntType& add(const int& value);
+    IntType& subtract(const int& value);
+    IntType& multiply(const int& value);
+    IntType& divide(const int& value);
 
 };
 
-IntType& IntType::add(int value)
+IntType& IntType::add(const int& value)
 {
+    if(this->value)
+    {
+        *this->value += value;
+    }
     return *this;
 }
 
-IntType& IntType::subtract(int value)
+IntType& IntType::subtract(const int& value)
 {
+    if(this->value)
+    {
+        *this->value -= value;
+    }
     return *this;
 }
 
-IntType& IntType::multiply(int value)
+IntType& IntType::multiply(const int& value)
 {
+    if(this->value)
+    {
+        *this->value *= value;
+    }
     return *this;
 }
 
-IntType& IntType::divide(int value)
+IntType& IntType::divide(const int& value)
 {
+    if(this->value)
+    {
+        *this->value /= value;
+    }
     return *this;
+}
+
+void testChaining()
+{
+    DoubleType dt(2.0);
+    dt.add(6.2).multiply(5.2).divide(6.2).subtract(2.5);
 }
 
 //============================================================================================================
@@ -298,7 +350,7 @@ int main()
     std::cout << "Initial value of it: " << it.value << std::endl;
     // --------
     std::cout << "Use of function concatenation (mixed type arguments) " << std::endl;
-    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << (dt.multiply(it).divide(5.0f).add(ft).value) << std::endl;
+    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << (dt.multiply(it).divide(5.0f).add(ft)value) << std::endl;
 
     std::cout << "---------------------\n" << std::endl;
 
