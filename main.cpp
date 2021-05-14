@@ -152,7 +152,7 @@ struct FloatType
 //Ch3.6 @17:30
 // Currently the only way to call a member function is via an existing object
 // @18:58 Modifying the member functions so that they return a reference
-FloatType& FloatType::add( float lhs, float rhs ) // am I changing the return type because float is owned by it?
+FloatType& FloatType::add(float value) // am I changing the return type because float is owned by it?
 {
     return *this; // @19:15 returns a reference to a FloatType so we can use member variables and call member functions of that returned reference
 }
@@ -169,10 +169,6 @@ FloatType& FloatType::multiply(float value)
 
 FloatType& FloatType::divide(float value)
 {
-    if (rhs == 0.0f)
-    {
-        std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
-    }
     return *this;
 }
 
@@ -215,9 +211,6 @@ DoubleType& DoubleType::multiply(double value)
 
 DoubleType& DoubleType::divide(double value)
 {
-    if (rhs == 0.0)
-        std::cout << "\n" << "warning, floating point division by zero returns 'inf' !" << std::endl;
-        
     return *this;
 }
 
@@ -228,7 +221,7 @@ struct IntType
     int* value;
 
     IntType(int intValue)
-        : value(new(intValue))
+        : value(new int(intValue))
     {
     }
     ~IntType()
@@ -261,12 +254,6 @@ IntType& IntType::multiply(int value)
 
 IntType& IntType::divide(int value)
 {
-    if (rhs == 0)
-    {
-        std::cout << "error, integer division by zero will crash the program!" << std::endl;
-        std::cout << "returning lhs" << std::endl;
-        return lhs;
-    }
     return *this;
 }
 
