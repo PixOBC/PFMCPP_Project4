@@ -123,6 +123,11 @@ good to go!
 
 #include <iostream>
 
+// forward declarations so that I can use non-implemented UDTs
+struct DoubleType;
+struct IntType;
+
+
 struct FloatType
 {
     // owned float type
@@ -140,11 +145,20 @@ struct FloatType
 
     // 4. In addition to your member functions that take primitives Write add/subtract...member functions for each type that take your 3 UDTs
     // These functions should return the result of calling the function that takes the primitive (i.e. float, double int)
-    FloatType& add(float& value);
-    FloatType& subtract(float& value);
-    FloatType& multiply(float& value);
-    FloatType& divide(float& value);
+    FloatType& add(float value);
+    FloatType& subtract(float value);
+    FloatType& multiply(float value);
+    FloatType& divide(float value);
 
+    FloatType& add(const DoubleType& value);
+    FloatType& subtract(const DoubleType& value);
+    FloatType& multiply(const DoubleType& value);
+    FloatType& divide(const DoubleType& value);
+
+    FloatType& add(const IntType& value);
+    FloatType& subtract(const IntType& value);
+    FloatType& multiply(const IntType& value);
+    FloatType& divide(const IntType& value);
 };
 
 // 3. make member functions modify the value?
@@ -152,12 +166,12 @@ struct FloatType
 //Ch3.6 @17:30
 // Currently the only way to call a member function is via an existing object
 // @18:58 Modifying the member functions so that they return a reference
-FloatType& FloatType::add(const float& value) // am I changing the return type because float is owned by it?
+FloatType& FloatType::add(float value) // am I changing the return type because float is owned by it?
 {
     return *this; // @19:15 returns a reference to a FloatType so we can use member variables and call member functions of that returned reference
 }
 
-FloatType& FloatType::subtract(const float& value) // need const to take in an rvalue?
+FloatType& FloatType::subtract(float value) // need const to take in an rvalue?
 {
     //Check
     if(this->value != nullptr)
@@ -168,7 +182,7 @@ FloatType& FloatType::subtract(const float& value) // need const to take in an r
     return *this;
 }
 
-FloatType& FloatType::multiply(const float& value)
+FloatType& FloatType::multiply(float value)
 {
     if(this->value != nullptr)
     {
@@ -177,12 +191,64 @@ FloatType& FloatType::multiply(const float& value)
     return *this;
 }
 
-FloatType& FloatType::divide(const float& value)
+FloatType& FloatType::divide(float value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value /= value;
     }
+    return *this;
+}
+
+FloatType& FloatType::add(const DoubleType& value)
+{
+    if(this->value)
+    {
+        *this->value -= value;
+    }
+    return *this;
+}
+
+FloatType& FloatType::subtract(const DoubleType& value)
+{
+    if(this->value)
+    {
+        *this->value -= value;
+    }
+    return *this;
+}
+
+FloatType& FloatType::multiply(const DoubleType& value)
+{
+    if(this->value)
+    {
+        *this->value -= value;
+    }
+    return *this;
+}
+
+FloatType& FloatType::divide(const DoubleType& value)
+{
+    return *this;
+}
+
+FloatType& FloatType::add(const IntType& value)
+{
+    return *this;
+}
+
+FloatType& FloatType::subtract(const IntType& value)
+{
+    return *this;
+}
+
+FloatType& FloatType::multiply(const IntType& value)
+{
+    return *this;
+}
+
+FloatType& FloatType::divide(const IntType& value)
+{
     return *this;
 }
 
@@ -202,48 +268,97 @@ struct DoubleType
         value = nullptr;
     }
 
-    DoubleType& add(const double& value);
-    DoubleType& subtractconst double& value);
-    DoubleType& multiply(const double& value);
-    DoubleType& divide(const double& value);
+    DoubleType& add(double value);
+    DoubleType& subtract(double value);
+    DoubleType& multiply(double value);
+    DoubleType& divide(double value);
+
+    DoubleType& add(const FloatType& value);
+    DoubleType& subtract(const FloatType& value);
+    DoubleType& multiply(const FloatType& value);
+    DoubleType& divide(const FloatType& value);
+
+    DoubleType& add(const IntType& value);
+    DoubleType& subtract(const IntType& value);
+    DoubleType& multiply(const IntType& value);
+    DoubleType& divide(const IntType& value);
 
 };
 
-DoubleType& DoubleType::add(const double& value)
+DoubleType& DoubleType::add(double value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value += value;
     }
     return *this;
 }
-DoubleType& DoubleType::subtract(const double& value)
+DoubleType& DoubleType::subtract(double value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value -= value;
     }
     return *this;
 }
 
-DoubleType& DoubleType::multiply(const double& value)
+DoubleType& DoubleType::multiply(double value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value *= value;
     }
     return *this;
 }
 
-DoubleType& DoubleType::divide(const double& value)
+DoubleType& DoubleType::divide(double value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value /= value;
     }
     return *this;
 }
 
+DoubleType& DoubleType::add(const FloatType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::subtract(const FloatType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::multiply(const FloatType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::divide(const FloatType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::add(const IntType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::subtract(const IntType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::multiply(const IntType& value)
+{
+    return *this;
+}
+
+DoubleType& DoubleType::divide(const IntType& value)
+{
+    return *this;
+}
 //============================================================================================================
 
 struct IntType
@@ -260,14 +375,25 @@ struct IntType
         value = nullptr;
     }
 
-    IntType& add(const int& value);
-    IntType& subtract(const int& value);
-    IntType& multiply(const int& value);
-    IntType& divide(const int& value);
+    IntType& add(int value);
+    IntType& subtract(int value);
+    IntType& multiply(int value);
+    IntType& divide(int value);
+
+    IntType& add(const FloatType& value);
+    IntType& subtract(const FloatType& value);
+    IntType& multiply(const FloatType& value);
+    IntType& divide(const FloatType& value);
+
+    IntType& add(const DoubleType& value);
+    IntType& subtract(const DoubleType& value);
+    IntType& multiply(const DoubleType& value);
+    IntType& divide(const DoubleType& value);
+
 
 };
 
-IntType& IntType::add(const int& value)
+IntType& IntType::add(int value)
 {
     if(this->value)
     {
@@ -276,7 +402,7 @@ IntType& IntType::add(const int& value)
     return *this;
 }
 
-IntType& IntType::subtract(const int& value)
+IntType& IntType::subtract(int value)
 {
     if(this->value)
     {
@@ -285,18 +411,18 @@ IntType& IntType::subtract(const int& value)
     return *this;
 }
 
-IntType& IntType::multiply(const int& value)
+IntType& IntType::multiply(int value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value *= value;
     }
     return *this;
 }
 
-IntType& IntType::divide(const int& value)
+IntType& IntType::divide(int value)
 {
-    if(this->value)
+    if(this->value != nullptr)
     {
         *this->value /= value;
     }
@@ -306,7 +432,47 @@ IntType& IntType::divide(const int& value)
 void testChaining()
 {
     DoubleType dt(2.0);
-    dt.add(6.2).multiply(5.2).divide(6.2).subtract(2.5);
+    dt.add(6.2).multiply(5.2).divide(5.6).subtract(2.5);
+}
+
+IntType& IntType::add(const FloatType& value)
+{
+    return *this;
+}
+
+IntType& IntType::subtract(const FloatType& value)
+{
+    return *this;
+}
+
+IntType& IntType::multiply(const FloatType& value)
+{
+    return *this;
+}
+
+IntType& IntType::divide(const FloatType& value)
+{
+    return *this;
+}
+
+IntType& IntType::add(const DoubleType& value)
+{
+    return *this;
+}
+
+IntType& IntType::subtract(const DoubleType& value)
+{
+    return *this;
+}
+
+IntType& IntType::multiply(const DoubleType& value)
+{
+    return *this;
+}
+
+IntType& IntType::divide(const DoubleType& value)
+{
+    return *this;
 }
 
 //============================================================================================================
@@ -350,7 +516,7 @@ int main()
     std::cout << "Initial value of it: " << it.value << std::endl;
     // --------
     std::cout << "Use of function concatenation (mixed type arguments) " << std::endl;
-    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << (dt.multiply(it).divide(5.0f).add(ft)value) << std::endl;
+    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << (dt.multiply(it).divide(5.0f).add(it).value) << std::endl;
 
     std::cout << "---------------------\n" << std::endl;
 
