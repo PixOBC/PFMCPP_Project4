@@ -200,31 +200,22 @@ FloatType& FloatType::divide(float value)
     return *this;
 }
 
+// THESE FUNCTIONS SHOULD RETURN THE RESULT OF CALLING THE FUNCTION THAT TAKES THE PRIMITIVE.
+// e.g. call add(float value)
+
 FloatType& FloatType::add(const DoubleType& value)
 {
-    if(this->value)
-    {
-        *this->value -= value;
-    }
-    return *this;
+    return divide(value);
 }
 
 FloatType& FloatType::subtract(const DoubleType& value)
 {
-    if(this->value)
-    {
-        *this->value -= value;
-    }
-    return *this;
+    return subtract(value);
 }
 
 FloatType& FloatType::multiply(const DoubleType& value)
 {
-    if(this->value)
-    {
-        *this->value -= value;
-    }
-    return *this;
+    return multiply(value);
 }
 
 FloatType& FloatType::divide(const DoubleType& value)
@@ -488,10 +479,10 @@ int main()
     DoubleType dt ( 2.0 );
     IntType it ( 2 ) ;
 
-    std::cout << "FloatType add result=" << ft.add( 2.0f ).value << std::endl;
-    std::cout << "FloatType subtract result=" << ft.subtract( 2.0f ).value << std::endl;
-    std::cout << "FloatType multiply result=" << ft.multiply( 2.0f ).value << std::endl;
-    std::cout << "FloatType divide result=" << ft.divide( 16.0f).value << std::endl << std::endl;
+    std::cout << "FloatType add result=" << *ft.add( 2.0f ).value << std::endl;
+    std::cout << "FloatType subtract result=" << *ft.subtract( 2.0f ).value << std::endl;
+    std::cout << "FloatType multiply result=" << *ft.multiply( 2.0f ).value << std::endl;
+    std::cout << "FloatType divide result=" << *ft.divide( 16.0f).value << std::endl << std::endl;
 
     std::cout << "DoubleType add result=" << dt.add(2.0).value << std::endl;
     std::cout << "DoubleType subtract result=" << dt.subtract(2.0).value << std::endl;
