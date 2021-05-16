@@ -272,10 +272,17 @@ FloatType& FloatType::multiply(float fValue)
 
 FloatType& FloatType::divide(float fValue)
 {
+    
     if(fValue == 0.0f)
     {
         std::cout << "warning: floating point division by zero!" << std::endl;
+        *this->value /= fValue;
     }
+    else
+    {
+        *this->value /= fValue;
+    }
+    
     return *this;
 }
 
@@ -375,6 +382,11 @@ DoubleType& DoubleType::divide(double dValue)
     if(dValue == 0.0)
     {
         std::cout << "warning: floating point division by zero!" << std::endl;
+        *this->value /= dValue;
+    }
+    else
+    {
+        *this->value /= dValue;
     }
     return *this;
 }
@@ -451,18 +463,17 @@ IntType& IntType::multiply(int iValue)
 
 IntType& IntType::divide(int iValue)
 {
-/*    if(iValue == 0)
+    if(iValue == 0)
     {
         std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
-    }*/
+    }
+    else
+    {
+        *this->value /= iValue;
+    }
+
     return *this;
 }
-
-/*void testChaining()
-{
-    DoubleType dt(2.0);
-    dt.add(6.2).multiply(5.2).divide(5.6).subtract(2.5);
-}*/
 
 IntType& IntType::add(const FloatType& fVal)
 {
@@ -545,7 +556,7 @@ int main()
     std::cout << "Initial value of it: " << *it.value << std::endl;
     // --------
     std::cout << "Use of function concatenation (mixed type arguments) " << std::endl;
-    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << *dt.multiply(it).divide(5.0).add(it).value << std::endl;
+    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << *dt.multiply(it).divide(5.0f).add(ft).value << std::endl;
 
     std::cout << "---------------------\n" << std::endl;
 
