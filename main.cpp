@@ -1,70 +1,62 @@
 /*
- Project 4 - Part 2 / 9
- Video: Chapter 3 Part 6
+ Project 4 - Part 3 / 9
+ Video: Chapter 4 Part 3 
+ Casting
 
- Create a branch named Part2
-
-New/This/Pointers/References conclusion
-
+ Create a branch named Part3
+ 
+ do not remove anything from main().  you'll be revising your main() to work with these new code changes.
+ 
     Build/Run often with this task to make sure you're not breaking the code with each step.
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
+
+ 1) remove your functions that accepted a User-Defined Type
  
- 0) in the blank space below, declare/define an empty struct named 'A' on a single Line. [DONE]
-     on the lines below it, write a struct named 'HeapA' that correctly shows how to own an instance of 'A' ON THE HEAP without leaking, without using smart pointers.
+ 2) remove any getValue() functions if you added them
+ 
+ 3) move all of your add/subtract/multiply/divide implementations out of the class.
+  
+ 4) add user-defined conversion functions that convert to the numeric type your object holds.
+        i.e. if your type holds an int, you'll need an operator int() function.
+ 
+ 5) make your member variable private.
+         this conversion function should be the ONLY WAY to access the held value.
+         use the proper casting technique to invoke this conversion function
+ 
+ 6) make sure it compiles & runs without errors.
+ 
+ 7) use your knowledge of casting to remove any conversion warnings. 
+
+ 8) insert 'part3();' before the 'good to go' at the end of your main(); 
+        move this part3 function to before main()
+
+ 9) click the [run] button.  Clear up any errors or warnings as best you can.
+
  */
 
-// With pointers and new keyword
-struct A { };
-
-struct HeapA
+void part3()
 {
-    A* pointerToA = new A();
-    ~HeapA()
-    {
-        delete pointerToA;
-        pointerToA = nullptr;
-    }
-};
-//Questions
- /*
-  * [DONE]
- 1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
-         IntType should own a heap-allocated int, for example.
- [DONE]
-  2) give it (your struct) a constructor that takes the appropriate primitive type.
-    This argument will initialize the owned primitive's ('*value') value.
-         i.e. if you're owning an int on the heap, your constructor argument will initialize that heap-allocated int's value.
+    FloatType ft( 5.5f );
+    DoubleType dt( 11.1 );
+    IntType it ( 34 );
+    DoubleType pi( 3.14 );
 
-[DONE]
- 3) modify those add/subtract/divide/multiply member functions from chapter 2 on it (your primitive type - modify how?)
-         a) make them (member functions) modify the owned numeric type - [DONE]
-         b) set them up so they can be chained together.
-             i.e.
-             DoubleType dt(3.5);
-             dt.add(3.0).multiply(-2.5).divide(7.2); //an example of chaining
- 
- 4) write add/subtract/divide/multiply member functions for each type that take your 3 UDTs (FloatType, DoubleType, IntType)
-        THESE ARE IN ADDITION TO YOUR MEMBER FUNCTIONS THAT TAKE PRIMITIVES
-        for example, IntType::divide(const DoubleType& dt);
-        These functions should return the result of calling the function that takes the primitive.
-     
- 5) Don't let your heap-allocated owned type leak!
- 
- 6) REPLACE YOUR MAIN() WITH THE MAIN() BELOW.
-    It has some intentional mistakes that you need to fix to match the expected output
-    i.e. don't forget to dereference your pointers to get the value they hold.
+    std::cout << "The result of FloatType^4 divided by IntType is: " << ft.multiply( ft ).multiply( ft ).divide( it ) << std::endl;
+    std::cout << "The result of DoubleType times 3 plus IntType is : " << dt.multiply( 3 ).add( it ) << std::endl;
+    std::cout << "The result of IntType divided by 3.14 multiplied by DoubleType minus FloatType is: " << it.divide( pi ).multiply( dt ).subtract( ft ) << std::endl;
+    std::cout << "An operation followed by attempts to divide by 0, which are ignored and warns user: " << std::endl;
+    std::cout << it.multiply(it).divide(0).divide(0.0f).divide(0.0) << std::endl;
+    
+    std::cout << "FloatType x IntType  =  " << it.multiply( ft ) << std::endl;
+    std::cout << "(IntType + DoubleType + FloatType) x 24 = " << it.add( dt ).add( ft ).multiply( 24 ) << std::endl;
+}
 
- 7) click the [run] button.  Clear up any errors or warnings as best you can.
- */
-
-// Warnings
 /*
 your program should generate the following output EXACTLY.
 This includes the warnings.
+The output should have zero warnings.
 Use a service like https://www.diffchecker.com/diff to compare your output. 
-you'll learn to solve the conversion warnings in the next project part.
 
-18 warnings generated.
 FloatType add result=4
 FloatType subtract result=2
 FloatType multiply result=4
@@ -99,25 +91,35 @@ New value of dt = dt / 0 = warning: floating point division by zero!
 inf
 ---------------------
 
+The result of FloatType^4 divided by IntType is: 26.9136
+The result of DoubleType times 3 plus IntType is : 67.3
+The result of IntType divided by 3.14 multiplied by DoubleType minus FloatType is: 711
+An operation followed by attempts to divide by 0, which are ignored and warns user: 
+error: integer division by zero is an error and will crash the program!
+error: integer division by zero is an error and will crash the program!
+error: integer division by zero is an error and will crash the program!
+505521
+FloatType x IntType  =  13143546
+(IntType + DoubleType + FloatType) x 24 = 315447336
 good to go!
+
+
 
 
 */
 
-// When finished
-/*
- MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
+// With pointers and new keyword
+struct A { };
 
- Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
-
- If you didn't already:
-    Make a pull request after you make your first commit
-    pin the pull request link and this repl.it link to our DM thread in a single message.
-
- send me a DM to review your pull request when the project is ready for review.
-
- Wait for my code review.
- */
+struct HeapA
+{
+    A* pointerToA = new A();
+    ~HeapA()
+    {
+        delete pointerToA;
+        pointerToA = nullptr;
+    }
+};
 
 //============================================================================================================
 
