@@ -531,7 +531,7 @@ int main()
     std::cout << "DoubleType add result=" << *dt.add(2.0).value << std::endl;
     std::cout << "DoubleType subtract result=" << *dt.subtract(2.0).value << std::endl;
     std::cout << "DoubleType multiply result=" << *dt.multiply(2.0).value << std::endl;
-    std::cout << "DoubleType divide result=" << *dt.divide(5.0).value << std::endl << std::endl;
+    std::cout << "DoubleType divide result=" << *dt.divide(5.f).value << std::endl << std::endl; // This used to be 5.f returning a DoubleType
 
     std::cout << "IntType add result=" << *it.add(2).value << std::endl;
     std::cout << "IntType subtract result=" << *it.subtract(2).value << std::endl;
