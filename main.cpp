@@ -276,13 +276,10 @@ FloatType& FloatType::divide(float fValue)
     if(fValue == 0.0f)
     {
         std::cout << "warning: floating point division by zero!" << std::endl;
-        *this->value /= fValue;
+
     }
-    else
-    {
-        *this->value /= fValue;
-    }
-    
+    *this->value /= fValue;
+
     return *this;
 }
 
@@ -336,7 +333,7 @@ FloatType& FloatType::add(const IntType& iVal)
 
 FloatType& FloatType::subtract(const IntType& iVal)
 {
-    return add(*iVal.value);
+    return subtract(*iVal.value);
 }
 
 FloatType& FloatType::multiply(const IntType& iVal)
@@ -382,12 +379,11 @@ DoubleType& DoubleType::divide(double dValue)
     if(dValue == 0.0)
     {
         std::cout << "warning: floating point division by zero!" << std::endl;
-        *this->value /= dValue;
+        
     }
-    else
-    {
-        *this->value /= dValue;
-    }
+    
+    *this->value /= dValue;
+
     return *this;
 }
 
@@ -471,7 +467,6 @@ IntType& IntType::divide(int iValue)
     {
         *this->value /= iValue;
     }
-
     return *this;
 }
 
